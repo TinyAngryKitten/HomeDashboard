@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fluid_slider/flutter_fluid_slider.dart';
-import 'package:mqttdashboard/widgets/StoneCard.dart';
+import 'package:flutter_xlider/flutter_xlider.dart';
 
 import '../mqtt.dart';
 
@@ -8,7 +7,7 @@ class LightSlider extends StatefulWidget {
   String topic;
 
   LightSlider(String lightName, {Key key}) : super(key: key) {
-    topic = "light/group/"+lightName+"/";
+    topic = "light/group/" + lightName + "/";
   }
 
   @override
@@ -16,28 +15,30 @@ class LightSlider extends StatefulWidget {
 }
 
 class _LightSliderState extends State<LightSlider> {
-  double _value = 0;
+  double _value = 2;
 
   @override
   Widget build(BuildContext context) {
-    return StoneCard(
-      FluidSlider(
-      value: _value,
-      start: Container(),
-      end: Container(),
-      onChanged: (newValue){
-        setState(() {
-          _value = newValue;
-        });
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return FlutterSlider(
+        axis: Axis.vertical,
+        values: [_value],
+        tooltip: FlutterSliderTooltip(disabled: true),
+        onDragging: (int newValue, arg2, arg3) {
+          setState(() {
+            _value = arg2.roundToDouble();
+          });
         },
-      onChangeEnd: (double newValue) {
-        setState(() {
-          _value = newValue;
-          publish(widget.topic+"brightness", newValue.round().toString());
-        });
-      },
-      min: 0.0,
-      max: 100.0,
-    ),);
+        onDragCompleted: (int newValue, arg2, arg3) {
+          publish(widget.topic + "brightness", arg2.round().toString());
+          setState(() {
+            _value = arg2.roundToDouble();
+          });
+        },
+        min: 0.0,
+        max: 100.0,
+      );
+    });
   }
 }

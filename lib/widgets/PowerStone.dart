@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mqttdashboard/widgets/StoneCard.dart';
 
 import '../globals.dart';
@@ -17,28 +18,18 @@ class PowerStoneState extends State<PowerStone> {
 
   double powerYesterday = 300;
   String unit = "kWh";
-  String cost = "8.4";
+  double cost = 8.4;
 
   double currently;
 
   PowerStoneState() {
-    subscribe("tibbers", (payload) {});
-    /*  var response = json.decode(payload);
-      var res = response["viewer"];
-      var homes = res["homes"];
-      var home = homes[0];
-      var cons = home["consumption"];
-      var conKeys = cons.keys();
-      var nodes = home["nodes"];
-      var nodesKeys = nodes.keys();
-      var node = nodes[0];
-      var data = response["viewer"]["homes"][0]["consumption"]["nodes"][0];
+    subscribe("tibbers", (String payload) {
       setState(() {
-        powerYesterday=data["consumption"];
-        unit = data["consumptionUnit"];
-        cost = data["cost"];
+        powerYesterday = double.parse(findStringInJson(payload, "consumption")).roundToDouble();
+        unit = findStringInJson(payload,"consumptionUnit");
+        cost = double.parse(findStringInJson(payload,"cost")).roundToDouble();
       });
-    });*/
+    });
   }
 
   @override
@@ -48,4 +39,11 @@ class PowerStoneState extends State<PowerStone> {
     ,style: h3,));
   }
 
+  //a bit tibber specific
+  String findStringInJson(String data, String str) {
+    int startPosition = data.lastIndexOf("\"$str\":"); //the value is a number
+    String subStr = data.substring(startPosition+"\"$str\":".length);
+    if(subStr.startsWith("\"")) subStr = subStr.substring(1);
+    return subStr.characters.takeWhile((s) => s != '"' && s != ',' && s != '}').string;
+  }
 }

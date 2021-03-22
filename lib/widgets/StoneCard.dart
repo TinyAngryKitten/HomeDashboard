@@ -7,7 +7,7 @@ class StoneCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.all(10),child: Container(
+    return Padding(padding: EdgeInsets.all(0),child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -22,7 +22,7 @@ class StoneCard extends StatelessWidget {
           ],
         ),
       child: child,
-      margin: EdgeInsets.all(1),
+      margin: EdgeInsets.all(0),
 
     ));
   }
