@@ -16,8 +16,8 @@ var LivingRoomStones = [
   createStone(child: GaugeStone("Temperature","homey/livingroomsensor/measure-temperature", valuePostfix: " °C",min: 10, max: 40,),width: 1, height: 1,),
 
   //Lights
-  createStone(child: LightSlider("hallway"),width: 1, height: 1,),
-  createStone(child: LightSlider("living room"),width: 1, height: 1,),
+  createStone(child: LightSlider("hallway", "Hallway", icon: Icons.lightbulb),width: 1, height: 1,),
+  createStone(child: LightSlider("living room", "Livingroom", icon: Icons.lightbulb),width: 1, height: 1,),
 
 
   //Flows
