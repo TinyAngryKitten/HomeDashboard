@@ -32,6 +32,8 @@ dependencies:
   mqtt_client: ^9.0.0
   flutter_fluid_slider: ^1.0.3
   flutter_xlider: ^3.4.0
+  flutter_neumorphic: ^3.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

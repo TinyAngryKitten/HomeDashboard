@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
+import '../globals.dart';
 
 class StoneCard extends StatelessWidget {
   final Widget child;
@@ -7,23 +11,21 @@ class StoneCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.all(0),child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 2,
-              blurRadius: 3,
-              offset: Offset(0, 1), // changes position of shadow
-            ),
-          ],
-        ),
-      child: child,
-      margin: EdgeInsets.all(0),
-
-    ));
+    return Container(
+      margin: EdgeInsets.all(20),
+        child: Neumorphic(
+          style: NeumorphicStyle(
+              shape: NeumorphicShape.flat,
+              boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+              depth: 20,
+              color: backgroundColor,
+              shadowLightColor: softShadowColor,
+              surfaceIntensity: 0.1,
+              intensity: 1,
+          ),
+          child: Container(clipBehavior: Clip.hardEdge, decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)), child: child),
+          margin: EdgeInsets.all(0),
+        )
+    );
   }
 }

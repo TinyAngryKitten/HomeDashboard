@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
 
 import '../mqtt.dart';
+import 'StoneCard.dart';
 
 class LightSlider extends StatefulWidget {
   String topic;
@@ -21,7 +22,7 @@ class _LightSliderState extends State<LightSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
+    return StoneCard(LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return Stack(children: [
         FlutterSlider(
@@ -59,6 +60,6 @@ class _LightSliderState extends State<LightSlider> {
               Center(child: Icon(widget.icon))
             ]),
         )]);
-    });
+    }));
   }
 }
