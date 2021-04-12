@@ -3,52 +3,36 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_wall_layout/flutter_wall_layout.dart';
-import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqttdashboard/globals.dart';
-import 'package:mqttdashboard/widgets/GaugeStone.dart';
-import 'package:mqttdashboard/widgets/StoneCard.dart';
-import 'package:mqttdashboard/widgets/TextStone.dart';
+import 'package:mqttdashboard/views/TvRemote.dart';
 
+import 'PhoneApp.dart';
 import 'StoneCollections.dart';
 
 Future main() async {
+  mqttClient.autoReconnect = true;
   mqttClient.resubscribeOnAutoReconnect = true;
-  mqttClient.onConnected = () => isConnected = true;
-  mqttClient.onDisconnected = () => isConnected = false;
-  await mqttClient.connect();
+  //mqttClient.onConnected = () => isConnected.value = true;
+  //mqttClient.onDisconnected = () => isConnected.value = false;
+  mqttClient.connect();
 
-  runApp(MyApp());
+  runApp(PhoneApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  Widget _child;
+  MyApp(this._child);
+
   @override
   Widget build(BuildContext context) {
     return NeumorphicApp(
-      title: 'Flutter Demo',
-      //theme: defaultTheme,
+      theme: neuTheme,
       home: Scaffold(
-        appBar: NeumorphicAppBar(
-          title: Center(
-              child: NeumorphicText("Livingroom",style: NeumorphicStyle(shadowLightColor: softShadowColor,shadowDarkColor: shadowColor, depth: 20),)),
-          color: backgroundColor,
-        ),
         body: Container(
           color: backgroundColor,
-            child: Column(
-          children:
-            [
-              WallLayout(layersCount: 2, stones: LivingRoomStones,)
-            ],),
+            child: _child
         )
       ),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    throw UnimplementedError();
   }
 }

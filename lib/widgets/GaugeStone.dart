@@ -1,8 +1,8 @@
-import 'dart:html';
+
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqttdashboard/globals.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
@@ -38,10 +38,18 @@ class GaugeStoneState extends State<GaugeStone> {
   @override
   Widget build(BuildContext context) {
     return StoneCard(
-      SfRadialGauge(
-        title: buildTitle(),
-        axes: [buildAxis()],
-      )
+      LayoutBuilder(builder: (context, constraints) {
+        var size = min(constraints.maxWidth, constraints.maxHeight);
+        return SizedBox(
+            width: size,
+            height: size,
+            child: Padding(
+              padding: EdgeInsets.all(10),
+            child: SfRadialGauge(
+          title: buildTitle(),
+          axes: [buildAxis()],
+        )));
+      },)
     );
   }
 
@@ -57,7 +65,7 @@ class GaugeStoneState extends State<GaugeStone> {
             positionFactor: 0,
             widget: Text(
               value.toString()+widget.valuePostfix,
-              style: h2,
+              style: h3,
             )
         )
       ],
@@ -66,10 +74,9 @@ class GaugeStoneState extends State<GaugeStone> {
           value: value ?? 0,
           width: 10,
           pointerOffset: 0,
-          cornerStyle: CornerStyle.bothCurve,
-          color: const Color(0xFFF67280),
+          cornerStyle: CornerStyle.bothFlat,
           gradient: const SweepGradient(
-              colors: <Color>[Color(0xFFFF7676), Color(0xFFF54EA2)],
+              colors: <Color>[gradientStart,gradientEnd],
               stops: <double>[0.25, 0.75]),
         ),
       ]
@@ -79,7 +86,7 @@ class GaugeStoneState extends State<GaugeStone> {
   GaugeTitle buildTitle() {
     return GaugeTitle(
       text: widget.title,
-      textStyle: h2,
+      textStyle: h3,
       backgroundColor: Colors.transparent,
       alignment: GaugeAlignment.center
     );

@@ -11,17 +11,19 @@ class StoneCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NeumorphicThemeData theme = NeumorphicTheme.currentTheme(context);
+
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: stoneMargin,
         child: Neumorphic(
           style: NeumorphicStyle(
-              shape: NeumorphicShape.flat,
               boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-              depth: 20,
+              lightSource: theme.lightSource,
               color: backgroundColor,
-              shadowLightColor: softShadowColor,
-              surfaceIntensity: 0.1,
-              intensity: 1,
+              shadowDarkColor: theme.shadowDarkColor,
+              shadowLightColor: theme.shadowLightColor,
+              depth: theme.depth,
+              intensity: theme.intensity
           ),
           child: Container(clipBehavior: Clip.hardEdge, decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)), child: child),
           margin: EdgeInsets.all(0),

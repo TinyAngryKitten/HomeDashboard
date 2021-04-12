@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqttdashboard/widgets/StoneCard.dart';
 
@@ -14,11 +15,19 @@ class ButtonStone extends StatelessWidget {
   ButtonStone(this.child, this.topic, { this.msg = ""});
   @override
   Widget build(BuildContext context) {
-    return StoneCard(
-        MaterialButton(
+    final NeumorphicThemeData theme = NeumorphicTheme.currentTheme(context);
+
+    return NeumorphicButton(
+      style: NeumorphicStyle(
+          lightSource: theme.lightSource,
+          color: backgroundColor,
+          shadowDarkColor: theme.shadowDarkColor,
+          shadowLightColor: theme.shadowLightColor,
+          depth: theme.depth,
+          intensity: theme.intensity
+      ),
           child: child,
           onPressed: onClick,
-        )
     );
   }
 
