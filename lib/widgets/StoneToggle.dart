@@ -22,9 +22,10 @@ class StoneToggleState extends State<StoneToggle> {
         boxShape: NeumorphicBoxShape.circle(),
         lightSource: theme.lightSource,
         color: backgroundColor,
-        shadowDarkColor: state ? theme.shadowDarkColor : theme.shadowLightColor,
-        shadowLightColor: state ? theme.shadowLightColor : theme.shadowDarkColor,
-
+        shadowDarkColor: theme.shadowDarkColor,
+        shadowLightColor:theme.shadowLightColor,
+        shadowDarkColorEmboss: theme.shadowDarkColor,
+        shadowLightColorEmboss: theme.shadowLightColor,
         depth: state ? theme.depth : -theme.depth,
         intensity: theme.intensity
       ),
@@ -37,7 +38,9 @@ class StoneToggleState extends State<StoneToggle> {
   }
 
   void toggle() {
-
+    setState(() {
+      state = !state;
+    });
   }
 
 }
