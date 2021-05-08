@@ -7,6 +7,11 @@ var flowsTopic="homey/flows/";
 
 var reactionMap = Map<String,ReactionDisposer>();
 
+void unsubscribe(String topic) {
+  mqttClient.unsubscribe(topic);
+  reactionMap[topic]?.call();
+}
+
 void subscribe(String topic, Function f) {
   if(isConnected.value) {
     mqttClient.subscribe(topic, MqttQos.exactlyOnce);

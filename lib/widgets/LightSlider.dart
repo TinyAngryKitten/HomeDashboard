@@ -22,11 +22,22 @@ class LightSlider extends StatefulWidget {
   }
 
   @override
-  _LightSliderState createState() => _LightSliderState();
+  _LightSliderState createState() => _LightSliderState(topic);
 }
 
 class _LightSliderState extends State<LightSlider> {
   double _value = 0;
+  bool isChanging = false;//used to keep slider from changing on updates while user is moving the slider
+
+  _LightSliderState(String topic) {
+    subscribe(topic+"update/brightness", (brightness) {
+      var brightnessValue = double.tryParse(brightness);
+      if(brightnessValue == null || isChanging) return;
+      else setState(() {
+        _value = brightnessValue;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +59,13 @@ class _LightSliderState extends State<LightSlider> {
         onChanged: (double newValue) {
           setState(() {
             _value = newValue.roundToDouble();
+            isChanging = true;
           });
         },
         onChangeEnd: (double newValue) {
           publish(widget.topic + "brightness", newValue.round().toString());
           setState(() {
+            isChanging = false;
             _value = newValue.roundToDouble();
           });
         },

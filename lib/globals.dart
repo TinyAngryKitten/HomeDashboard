@@ -16,11 +16,11 @@ const TextStyle p = TextStyle(fontSize: 14, color: Colors.white);
 const EdgeInsets stoneMargin = EdgeInsets.all(6);
 
 final neuTheme = NeumorphicThemeData(
-    depth: 10,
+    depth: 3,
     boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
     shadowDarkColor: shadowColor,
     shadowLightColor: softShadowColor,
-    intensity: 0.7,
+    intensity: 0.5,
     defaultTextColor: highlightColor,
     baseColor: backgroundColor,
     accentColor: gradientStart,

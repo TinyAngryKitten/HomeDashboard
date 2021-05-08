@@ -17,60 +17,78 @@ class PhoneApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MyApp( Scaffold(
+    return MyApp(
+      Scaffold(
+          bottomNavigationBar: NavBar(),
           body: Container(
-              margin: EdgeInsets.all(25),
+              margin: EdgeInsets.all(15),
               color: backgroundColor,
               child: Center(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      PhoneAppBar("Living room"),
-                      FractionallySizedBox(
-                          widthFactor: 0.6,
-                          child: Center(
-                              child: GaugeStone(
-                            "",
-                            "homey/livingroomsensor/measure-temperature",
-                            valuePostfix: " °C",
-                          ))),
+                      PhoneAppBar(room),
+                      AirQualityStats(room),
 
                       buildSpacer(),
                       buildSliderRow(),
 
+                      Expanded(
+                        child: Container(),
+                      ),
                       buildSpacer(),
                       buildActionRow(),
 
+                      Expanded(
+                        child: Container(),
+                      ),
                       buildSpacer(),
                       buildStateRow(),
 
-                      Expanded(child: Container(),),
-                      NavBar()
+                      Expanded(
+                        child: Container(),
+                      ),
                       //LightSlider("hallway", "Hallway", icon: Icons.lightbulb),
                     ]),
               ))),
     );
   }
 
-  Widget buildSpacer() => Container(height: 30,);
+  Widget AirQualityStats(String room) {
+    return Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("24 °C", style: h1.copyWith(fontSize: 60)),
+            Text(
+              "50 %",
+              style: h2,
+            )
+          ],
+        ));
+  }
+
+  Widget buildSpacer() => Container(
+        height: 30,
+      );
 
   Widget buildActionRow() => Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [
-      NightButton(),
-      NightButton(),
-      NightToggle()
-    ],
-  );
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          NightButton(),
+          HomeButton(),
+        ],
+      );
 
   Widget buildStateRow() => Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [
-      NightToggle(),
-      NightToggle(),
-      NightToggle(),
-    ],
-  );
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          NightToggle(),
+          HomeToggle(),
+          SensorToggle(),
+        ],
+      );
 
   Widget buildSliderRow() {
     double height = 150;
@@ -79,13 +97,31 @@ class PhoneApp extends StatelessWidget {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-        LightSlider("hallway", "Hallway", icon: Icons.lightbulb, height: height, width: width,),
-        LightSlider("living room", "Livingroom", icon: Icons.lightbulb, height: height, width: width,)
-      ],);
+          LightSlider(
+            "hallway",
+            "Hallway",
+            icon: Icons.lightbulb,
+            height: height,
+            width: width,
+          ),
+          LightSlider(
+            "living room",
+            "Livingroom",
+            icon: Icons.lightbulb,
+            height: height,
+            width: width,
+          )
+        ],
+      );
     });
   }
 }
 
 Stone spaceStone(int id, int width, int height) {
-  return Stone(id: id,child: Container(), width: width, height: height,);
+  return Stone(
+    id: id,
+    child: Container(),
+    width: width,
+    height: height,
+  );
 }

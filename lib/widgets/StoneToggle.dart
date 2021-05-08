@@ -2,17 +2,41 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:mqttdashboard/globals.dart';
 
-class StoneToggle extends StatefulWidget {
-  final Widget child;
+import '../mqtt.dart';
 
-  const StoneToggle({Key key, this.child}) : super(key: key);
+class StoneToggle extends StatefulWidget {
+  final Widget onChild;
+  final Widget offChild;
+  final String topic;
+
+  const StoneToggle({Key key, this.onChild, this.offChild, this.topic}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => StoneToggleState();
 }
 
-class StoneToggleState extends State<StoneToggle> {
+class StoneToggleState extends State<StoneToggle> with SingleTickerProviderStateMixin {
   bool state = false;
+  AnimationController _controller;
+  Animation<double> curve;
+  Path path;
+
+  StoneToggleState() {
+    _controller = AnimationController(value: 0, duration: Duration(milliseconds: 500), vsync: this);
+    curve = CurvedAnimation(parent: _controller, curve: Curves.bounceIn);
+    path = Path()..addOval(Rect.fromCircle(center: Offset.zero, radius: 30));
+
+    /*subscribe(widget.topic,(result) {
+
+    });*/
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    unsubscribe(widget.topic);
+  }
+
   @override
   Widget build(BuildContext context) {
     final NeumorphicThemeData theme = NeumorphicTheme.currentTheme(context);
@@ -26,20 +50,21 @@ class StoneToggleState extends State<StoneToggle> {
         shadowLightColor:theme.shadowLightColor,
         shadowDarkColorEmboss: theme.shadowDarkColor,
         shadowLightColorEmboss: theme.shadowLightColor,
-        depth: state ? theme.depth : -theme.depth,
+        depth: theme.depth,
         intensity: theme.intensity
       ),
       onPressed: toggle,
       child: Container(
         padding: EdgeInsets.all(10),
-          child: widget.child
-      ),
+        child: state ? widget.onChild : widget.offChild,
+      )
     );
   }
 
   void toggle() {
     setState(() {
       state = !state;
+      publish(widget.topic,state.toString());
     });
   }
 

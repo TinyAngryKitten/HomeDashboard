@@ -12,13 +12,11 @@ class PhoneAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-        margin: EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 20),
+        margin: EdgeInsets.only(top: 20, bottom: 10, left: 20, right: 20),
         child: Row(
       children: [
         ConnectionIndicator(),
         Expanded(child: buildTitle()),
-        AppBarStat("homey/livingroomsensor/measure-temperature", "°C"),
-        AppBarStat("homey/livingroomsensor/measure-humidity", "%"),
       ],
     ))  ;
   }

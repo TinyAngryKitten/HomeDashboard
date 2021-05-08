@@ -37,8 +37,7 @@ class GaugeStoneState extends State<GaugeStone> {
 
   @override
   Widget build(BuildContext context) {
-    return StoneCard(
-      LayoutBuilder(builder: (context, constraints) {
+    return LayoutBuilder(builder: (context, constraints) {
         var size = min(constraints.maxWidth, constraints.maxHeight);
         return SizedBox(
             width: size,
@@ -49,7 +48,7 @@ class GaugeStoneState extends State<GaugeStone> {
           title: buildTitle(),
           axes: [buildAxis()],
         )));
-      },)
+      },
     );
   }
 

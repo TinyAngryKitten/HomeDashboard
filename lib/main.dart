@@ -1,19 +1,21 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_wall_layout/flutter_wall_layout.dart';
+import 'package:mobx/mobx.dart';
 import 'package:mqttdashboard/globals.dart';
-import 'package:mqttdashboard/views/TvRemote.dart';
 
 import 'PhoneApp.dart';
-import 'StoneCollections.dart';
+import 'package:flutter/services.dart';
 
 Future main() async {
+  //disable strict mode to allow changing observables
+  mainContext.config = ReactiveConfig.main.clone(writePolicy: ReactiveWritePolicy.never);
+
   mqttClient.autoReconnect = true;
   mqttClient.resubscribeOnAutoReconnect = true;
-  //mqttClient.onConnected = () => isConnected.value = true;
-  //mqttClient.onDisconnected = () => isConnected.value = false;
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+  mqttClient.onConnected = () => isConnected.value = true;
+  mqttClient.onDisconnected = () => isConnected.value = false;
   mqttClient.connect();
 
   runApp(PhoneApp());
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NeumorphicApp(
+      debugShowCheckedModeBanner: false,
       theme: neuTheme,
       home: Scaffold(
         body: Container(

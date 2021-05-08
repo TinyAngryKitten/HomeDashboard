@@ -49,9 +49,9 @@ class TvRemote extends StatelessWidget {
         children: [
           buildTextButton("Apple TV", tvTopic, "InputHdmi3", context, BrandIcons.apple),
           Container(height: 20,),
-          buildTextButton("Playstation", tvTopic, "PowerToggle", context, BrandIcons.playstation),
+          buildTextButton("Playstation", tvTopic, "InputHdmi1", context, BrandIcons.playstation),
           Container(height: 20,),
-          buildTextButton("Switch", tvTopic, "PowerToggle", context, BrandIcons.nintendoswitch),
+          buildTextButton("Switch", tvTopic, "InputHdmi2", context, BrandIcons.nintendoswitch),
         ]));
   }
 
@@ -132,8 +132,8 @@ class TvRemote extends StatelessWidget {
   }
 }
 
-String appleTvTopic = "";
-String tvTopic = "";
+String appleTvTopic = "harmony/livingroom/Apple TV";
+String tvTopic = "harmony/livingroom/LG TV";
 
 void _sendOK() => publish(appleTvTopic, "OK");
 
