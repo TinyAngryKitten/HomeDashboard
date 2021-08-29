@@ -8,9 +8,9 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 double sliderHeight = 100;
 double sliderWidth = 100;
 
-const TextStyle h1 = TextStyle(fontSize: 32, color: Colors.white);
-const TextStyle h2 = TextStyle(fontSize: 24, color: Colors.white);
-const TextStyle h3 = TextStyle(fontSize: 18, color: Colors.white);
+const TextStyle h1 = TextStyle(fontSize: 30, color: Colors.white);
+const TextStyle h2 = TextStyle(fontSize: 22, color: Colors.white);
+const TextStyle h3 = TextStyle(fontSize: 17, color: Colors.white);
 const TextStyle p = TextStyle(fontSize: 14, color: Colors.white);
 
 const EdgeInsets stoneMargin = EdgeInsets.all(6);

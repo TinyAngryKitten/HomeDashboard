@@ -39,7 +39,7 @@ class TvRemote extends StatelessWidget {
           buildIconButton(Icons.tv, tvTopic, "PowerToggle", context),
           Container(width: 20,),
           buildIconButton(
-              BrandIcons.apple, appleTvTopic, "PowerToggle", context),
+              BrandIcons.apple, appleTvTopic, "Menu", context),
         ]);
   }
 
@@ -103,6 +103,7 @@ class TvRemote extends StatelessWidget {
       decoration: BoxDecoration(
           color: lightBackgroundColor, borderRadius: BorderRadius.circular(10)),
       child: GestureDetector(
+        onTapDown: (details) => _sendOK,
         onTap: () => _sendOK,
         onHorizontalDragEnd: _onSwipeHorizontal,
         onVerticalDragEnd: _onSwipeVertical,
@@ -140,4 +141,4 @@ void _sendOK() => publish(appleTvTopic, "OK");
 void _onSwipeHorizontal(DragEndDetails details) => publish(appleTvTopic,
     details.primaryVelocity > 0 ? "DirectionRight" : "DirectionLeft");
 void _onSwipeVertical(DragEndDetails details) => publish(appleTvTopic,
-    details.primaryVelocity > 0 ? "DirectionUp" : "DirectionDown");
+    details.primaryVelocity > 0 ? "DirectionDown" : "DirectionUp");

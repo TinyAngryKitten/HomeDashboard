@@ -18,6 +18,11 @@ Future main() async {
   mqttClient.onDisconnected = () => isConnected.value = false;
   mqttClient.connect();
 
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
   runApp(PhoneApp());
 }
 

@@ -1,24 +1,15 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:mqttdashboard/globals.dart';
 import 'package:mqttdashboard/main.dart';
 
-String statsUrl = "https://www.google.com";
+String url = "https://my.homey.app/homeys/5ff832d7994cd20b7e4addec/energy";
 
-class StatsScreen extends StatelessWidget {
-
-  StatsScreen() {
-    //if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
-  }
-
+class EnergyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MyApp(
       WebviewScaffold(
-        url: statsUrl,
+        url: url,
         appBar: new AppBar(
           backgroundColor: backgroundColor,
           leading: exitButton(context),

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:mqttdashboard/utils/ColorUtils.dart';
+import 'package:mqttdashboard/views/HomeyScreen.dart';
+import 'package:mqttdashboard/views/HomeyView.dart';
 import 'package:mqttdashboard/views/TvRemote.dart';
-import 'package:mqttdashboard/widgets/StatsScreen.dart';
+import 'package:mqttdashboard/views/StatsScreen.dart';
 
 import '../globals.dart';
 
@@ -19,7 +21,8 @@ class NavBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 buildIconButton(Icons.tv, () => _openTvView(context)),
-                buildIconButton(Icons.bar_chart, () => _openStatsView(context))
+                buildIconButton(Icons.bar_chart, () => _openStatsView(context)),
+                buildIconButton(Icons.home_rounded, () => _openHomeyView(context)),
               ],
             ))
       ],
@@ -40,6 +43,10 @@ class NavBar extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _openHomeyView(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (ctx) => HomeyView()));
   }
 
   void _openTvView(BuildContext context) {
