@@ -8,6 +8,7 @@ class Room {
   List<SliderItem> sliderItems;
 
   String name;
+  String airQualityTopic;
 
-  Room(this.name,  this.stateItems,this.actionItems,this.sliderItems);
+  Room(this.name,  this.stateItems,this.actionItems,this.sliderItems, this.airQualityTopic);
 }

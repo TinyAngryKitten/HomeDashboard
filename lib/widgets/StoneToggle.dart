@@ -7,12 +7,13 @@ import '../mqtt.dart';
 class StoneToggle extends StatefulWidget {
   final Widget onChild;
   final Widget offChild;
-  final String topic;
+  final String subscribeTopic;
+  final String publishTopic;
 
-  const StoneToggle({Key key, this.onChild, this.offChild, this.topic}) : super(key: key);
+  const StoneToggle({Key key, this.onChild, this.offChild, this.subscribeTopic, this.publishTopic}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => StoneToggleState();
+  State<StatefulWidget> createState() => StoneToggleState(subscribeTopic);
 }
 
 class StoneToggleState extends State<StoneToggle> with SingleTickerProviderStateMixin {
@@ -21,20 +22,25 @@ class StoneToggleState extends State<StoneToggle> with SingleTickerProviderState
   Animation<double> curve;
   Path path;
 
-  StoneToggleState() {
+  StoneToggleState(String subscribeTopic) {
     _controller = AnimationController(value: 0, duration: Duration(milliseconds: 500), vsync: this);
     curve = CurvedAnimation(parent: _controller, curve: Curves.bounceIn);
     path = Path()..addOval(Rect.fromCircle(center: Offset.zero, radius: 30));
 
-    /*subscribe(widget.topic,(result) {
-
-    });*/
+    subscribe(subscribeTopic, (result) {
+      if(result is String) {
+        setState(() {
+          if (result == "true") state = true;
+          else if (result == "false") state = false;
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
-    unsubscribe(widget.topic);
+    unsubscribe(widget.subscribeTopic);
   }
 
   @override
@@ -64,7 +70,7 @@ class StoneToggleState extends State<StoneToggle> with SingleTickerProviderState
   void toggle() {
     setState(() {
       state = !state;
-      publish(widget.topic,state.toString());
+      publish(widget.publishTopic, state.toString());
     });
   }
 

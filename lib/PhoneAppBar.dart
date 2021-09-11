@@ -1,13 +1,17 @@
+import 'dart:ffi';
+
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:mqttdashboard/widgets/AppBarStat.dart';
 import 'package:mqttdashboard/widgets/ConnectionIndicator.dart';
 
+import 'data/Room.dart';
+import 'data/Rooms.dart';
 import 'globals.dart';
 
 class PhoneAppBar extends StatelessWidget {
-  final String room;
-
-  PhoneAppBar(this.room);
+  final Room room;
+  final Function onRoomChanged;
+  PhoneAppBar(this.room, this.onRoomChanged);
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +20,29 @@ class PhoneAppBar extends StatelessWidget {
         child: Row(
       children: [
         ConnectionIndicator(),
-        Expanded(child: buildTitle()),
+        Expanded(child: Container()),
+        buildRoomPicker(),
+        Expanded(child: Container())
       ],
-    ))  ;
+    ));
+  }
+
+  Widget buildRoomPicker() {
+    return DropdownButton(
+      underline: Container(),
+      value: room,
+      onChanged: (o) => onRoomChanged(o),
+      items: rooms.values.map((Room r) => DropdownMenuItem<Room>(
+        value: r,
+        child: buildRoomName(r.name),
+      )).toList()
+    );
   }
 
   // ignore: missing_return
-  Widget buildTitle() {
+  Widget buildRoomName(String name) {
     return NeumorphicText(
-      room,
+      name,
       style: NeumorphicStyle(
           shadowLightColor: softShadowColor,
           shadowDarkColor: shadowColor,

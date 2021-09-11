@@ -3,14 +3,16 @@ import 'package:mqttdashboard/data/Room.dart';
 import '../ButtonCollection.dart';
 import 'SliderItem.dart';
 
-var livingroom = "living room";
+var livingroomName = "living room";
+var bedroomName = "bedroom";
 
 var rooms = {
-   livingroom: Room(
+  livingroomName: Room(
   "living room",
     [
       NightButton(),
       HomeButton(),
+      ACButton(),
     ],
     [
       NightToggle(),
@@ -20,5 +22,23 @@ var rooms = {
   [
     SliderItem("living room", "Living room"),
     SliderItem("hallway", "Hallway"),
-  ]
-)};
+  ],
+    "homey/airthings-wave-mini-stue"
+),
+
+  bedroomName: Room(
+      "bedroom",
+      [
+        NightButton(),
+        HomeButton(),
+      ],
+      [
+        SensorToggle("bedroom"),
+        NightToggle(),
+      ],
+      [
+        SliderItem("bedroom", "Bedroom"),
+      ],
+      "homey/airthings-wave-mini-stue"
+  )
+};

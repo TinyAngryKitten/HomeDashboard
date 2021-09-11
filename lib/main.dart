@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:mobx/mobx.dart';
+import 'package:mqttdashboard/VerticalApp.dart';
 import 'package:mqttdashboard/globals.dart';
 
 import 'PhoneApp.dart';
@@ -23,7 +24,7 @@ Future main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(PhoneApp());
+  runApp(VerticalApp());
 }
 
 class MyApp extends StatelessWidget {

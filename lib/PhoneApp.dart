@@ -8,13 +8,26 @@ import 'package:mqttdashboard/widgets/LightSlider.dart';
 import 'package:mqttdashboard/widgets/NavBar.dart';
 
 import 'PhoneAppBar.dart';
+import 'data/Room.dart';
+import 'data/Rooms.dart';
 import 'globals.dart';
 import 'main.dart';
 
 String room = "Livingroom";
 
-class PhoneApp extends StatelessWidget {
-  // This widget is the root of your application.
+class PhoneApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => PhoneAppState();
+
+}
+
+class PhoneAppState extends State<PhoneApp> {
+  Room room;
+
+  PhoneAppState() {
+    room = rooms[livingroomName];
+  }
+
   @override
   Widget build(BuildContext context) {
     return MyApp(
@@ -27,8 +40,12 @@ class PhoneApp extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      PhoneAppBar(room),
-                      AirQualityStats(room),
+                      PhoneAppBar(room, (Room r){
+                        setState(() {
+                        room = r;
+                        });
+                      }),
+                      AirQualityStats(room.name),
 
                       buildSpacer(),
                       buildSliderRow(),

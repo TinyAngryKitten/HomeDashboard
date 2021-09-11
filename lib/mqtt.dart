@@ -24,7 +24,6 @@ void subscribe(String topic, Function f) {
       _listenForEvents(topic,f);
     }));
   }
-
 }
 
 void _listenForEvents(String topic, Function f) {

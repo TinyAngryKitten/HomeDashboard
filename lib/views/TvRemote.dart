@@ -20,11 +20,12 @@ class TvRemote extends StatelessWidget {
               ]),
               Expanded(child: buildTouchPad()),
               Container(height: 20),
-              Row(children: [
-                buildPowerRow(context),
-                Expanded(child: Container()),
-                buildVolumeColumn(context),
-                Expanded(child: Container()),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    buildPowerRow(context),
+                    buildVolumeColumn(context),
+                    buildIconButton(Icons.check_circle_outline, appleTvTopic, "Select", context),
               ]),
               Container(height: 40),
               buildInputRow(context)
@@ -136,7 +137,7 @@ class TvRemote extends StatelessWidget {
 String appleTvTopic = "harmony/livingroom/Apple TV";
 String tvTopic = "harmony/livingroom/LG TV";
 
-void _sendOK() => publish(appleTvTopic, "OK");
+void _sendOK() => publish(appleTvTopic, "Select");
 
 void _onSwipeHorizontal(DragEndDetails details) => publish(appleTvTopic,
     details.primaryVelocity > 0 ? "DirectionRight" : "DirectionLeft");
